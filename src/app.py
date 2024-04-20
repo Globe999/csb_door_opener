@@ -30,14 +30,12 @@ def open_door():
     if request.args.get('api_key') != os.environ.get('API_KEY'):
         return "Unauthorized", 401
 
-    print("Here")
     driver = webdriver.Chrome(options=set_chrome_options())
     wait = WebDriverWait(driver, 10)
     driver.implicitly_wait(2)
 
     driver.get(BASE_URL)
 
-    title = driver.title
     driver.find_element(By.ID, "user_login").send_keys(USERNAME)
     driver.find_element(By.ID, "user_pass").send_keys(PASSWORD)
     driver.find_element(By.XPATH, '//button[text()="Logga in"]').click()
@@ -77,6 +75,7 @@ def set_chrome_options() -> Options:
 
 
 if __name__ == '__main__':
+    print("Starting server...")
     if os.environ.get("ENV") == "development":
         app.run(debug=True, host="0.0.0.0", port=int(PORT))
     else:
