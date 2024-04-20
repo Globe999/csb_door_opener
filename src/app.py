@@ -8,6 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 import chromedriver_autoinstaller
 import time
 from dotenv import load_dotenv
+from waitress import serve
 
 app = Flask(__name__)
 
@@ -76,4 +77,7 @@ def set_chrome_options() -> Options:
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host="0.0.0.0", port=int(PORT)) 
+    if os.environ.get("ENV") == "development":
+        app.run(debug=True, host="0.0.0.0", port=int(PORT))
+    else:
+        serve(app, host="0.0.0.0", port=int(PORT))
