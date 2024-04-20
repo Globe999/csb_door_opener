@@ -33,10 +33,10 @@ The application can also be run inside a Docker container. To build and run the 
 ```docker
 version: '3'
 services:
-  app:
-    build: .
+  csb_door_opener:
+    image: globeeee/csb_door_opener:main
     env_file:
       - .env
     ports:
-      - "5500:5500"
+      - "${PORT}:${PORT}"
 ```
